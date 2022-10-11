@@ -16,6 +16,14 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@app/common/*": ["./src/_common/*"],
+      "@app/enums/*": ["src/_common/enums/*"],
+      "@app/modules/*": ["./src/modules/*"],
+      "@app/services/*": ["./src/services/*"],
+      "@app/dtos/*": ["src/_common/dtos/*"],
+      "@app/pipes/*": ["src/pipes/*"]
+    }
   }
 }

@@ -3,6 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { loadEnv } from './config/configuration';
+import { UserModule } from './modules/user/user.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { DateServiceModule } from './services/date-service/date-service.module';
 
 @Module({
 	imports: [
@@ -10,6 +13,11 @@ import { loadEnv } from './config/configuration';
 			isGlobal: true,
 			load: [loadEnv],
 		}),
+		MongooseModule.forRoot(process.env.MONGO_URI, {
+			dbName: process.env.DB_NAME,
+		}),
+		UserModule,
+		DateServiceModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
