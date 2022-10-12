@@ -1,4 +1,4 @@
-import { ArgumentMetadata, BadRequestException, PipeTransform } from '@nestjs/common';
+import { ArgumentMetadata, BadRequestException, PipeTransform, ValidationError } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 
 export class ObjectIdValidationPipe implements PipeTransform {
@@ -7,7 +7,11 @@ export class ObjectIdValidationPipe implements PipeTransform {
 			if (ObjectId.isValid(value)) {
 				return new ObjectId(value);
 			}
-			throw new BadRequestException();
+			const error: Partial<ValidationError> = {
+				property: 'id',
+				constraints: { id: 'ID must be valid ObjectID' },
+			};
+			throw new BadRequestException(error);
 		}
 		return value;
 	}

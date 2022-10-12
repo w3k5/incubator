@@ -1,21 +1,31 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { Test, TestingModule } from '@nestjs/testing';
+import { HttpStatus, INestApplication } from '@nestjs/common';
+import { AppModule } from '../src/app.module';
+import { closeInMongodConnection, rootMongooseTestModule } from './utils/mongoose-test.module';
+import { setAppConfiguration } from '../src/config/app-configuration';
 
 describe('AppController (e2e)', () => {
 	let app: INestApplication;
 
-	beforeEach(async () => {
+	beforeAll(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [AppModule],
+			imports: [rootMongooseTestModule(), AppModule],
 		}).compile();
 
 		app = moduleFixture.createNestApplication();
+
+		setAppConfiguration(app);
+
 		await app.init();
 	});
 
+	afterAll(async () => {
+		await app.close();
+		await closeInMongodConnection();
+	});
+
 	it('/ (GET)', () => {
-		return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
+		return request(app.getHttpServer()).get('/').expect(HttpStatus.OK).expect('Hello World!');
 	});
 });

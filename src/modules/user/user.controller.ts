@@ -11,8 +11,8 @@ import {
 	Query,
 	UsePipes,
 } from '@nestjs/common';
-import { CreateUserDto } from '@app/modules/user/dto/create-user.dto';
-import { UserService } from '@app/modules/user/user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserService } from './user.service';
 import { AbstractUserQueryRepository } from '@app/modules/user/user-database/user-query-repo/_abstract.user-query-repo.service';
 import { ObjectId } from 'mongodb';
 import { ObjectIdValidationPipe } from '@app/pipes/objectId.validator.pipe';

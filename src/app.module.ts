@@ -6,6 +6,7 @@ import { loadEnv } from './config/configuration';
 import { UserModule } from './modules/user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { DateServiceModule } from './services/date-service/date-service.module';
+import { BlogModule } from './modules/blog/blog.module';
 
 @Module({
 	imports: [
@@ -18,6 +19,7 @@ import { DateServiceModule } from './services/date-service/date-service.module';
 		}),
 		UserModule,
 		DateServiceModule,
+		BlogModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
