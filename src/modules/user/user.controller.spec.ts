@@ -1,20 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
-import { UserDatabaseModule } from '@app/modules/user/user-database/user-database.module';
-import { PasswordModule } from '@app/services/password/password.module';
-import { UserService } from '@app/modules/user/user.service';
-import { closeInMongodConnection, rootMongooseTestModule } from '../../../test/utils/mongoose-test.module';
+import { closeInMongodConnection } from '../../../test/utils/mongoose-test.module';
 import { SortDirectionEnum } from '@app/enums/sort-direction.enum';
+import { userModuleSettings } from '@app/modules/user/user.module';
+import { testModuleDatabasePrepare } from '../../../test/utils/module-prepare';
 
 describe('UserController', () => {
 	let controller: UserController;
 
 	beforeAll(async () => {
-		const module: TestingModule = await Test.createTestingModule({
-			imports: [rootMongooseTestModule(), UserDatabaseModule, PasswordModule],
-			controllers: [UserController],
-			providers: [UserService],
-		}).compile();
+		const module: TestingModule = await Test.createTestingModule(
+			await testModuleDatabasePrepare(userModuleSettings),
+		).compile();
 
 		controller = module.get<UserController>(UserController);
 	});

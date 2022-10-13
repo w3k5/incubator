@@ -8,7 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { DateServiceModule } from './services/date-service/date-service.module';
 import { BlogModule } from './modules/blog/blog.module';
 
-@Module({
+export const appModuleSettings = {
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
@@ -23,5 +23,7 @@ import { BlogModule } from './modules/blog/blog.module';
 	],
 	controllers: [AppController],
 	providers: [AppService],
-})
+};
+
+@Module(appModuleSettings)
 export class AppModule {}

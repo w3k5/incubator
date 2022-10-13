@@ -188,12 +188,14 @@ describe('Users', () => {
 		} = await createUser(app);
 		await getUserById(app, id, HttpStatus.OK);
 		await request(app.getHttpServer()).delete(`/users/${id}`).expect(HttpStatus.NO_CONTENT);
-		await getUserById(app, id, HttpStatus.NOT_FOUND);
+		const { body } = await getUserById(app, id, HttpStatus.NOT_FOUND);
+		expect(body).toStrictEqual({});
 	});
 
 	it("Shouldn't delete not existing user", async () => {
 		const fakeId = faker.database.mongodbObjectId();
-		await request(app.getHttpServer()).delete(`/users/${fakeId}`).expect(HttpStatus.NOT_FOUND);
+		const { body } = await request(app.getHttpServer()).delete(`/users/${fakeId}`).expect(HttpStatus.NOT_FOUND);
+		expect(body).toStrictEqual({});
 	});
 
 	it("Shouldn't delete user with invalid id", async () => {
