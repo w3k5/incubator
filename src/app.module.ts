@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { loadEnv } from './config/configuration';
+import { loadEnv } from './config/env-configuration';
 import { UserModule } from './modules/user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { DateServiceModule } from './services/date-service/date-service.module';
 import { BlogModule } from './modules/blog/blog.module';
+import { AuthModule } from '@app/modules/auth/auth.module';
 
 export const appModuleSettings = {
 	imports: [
@@ -20,6 +21,7 @@ export const appModuleSettings = {
 		UserModule,
 		DateServiceModule,
 		BlogModule,
+		AuthModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

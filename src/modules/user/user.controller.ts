@@ -9,6 +9,7 @@ import {
 	Param,
 	Post,
 	Query,
+	UseGuards,
 	UsePipes,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +19,7 @@ import { ObjectId } from 'mongodb';
 import { ObjectIdValidationPipe } from '@app/pipes/objectId.validator.pipe';
 import { UserOutputModel } from '@app/modules/user/types/output-model';
 import { GetAllUsersSearchParamsDto } from '@app/modules/user/dto/get-all-users-params.dto';
+import { BasicAuthGuard } from '@app/guards/basic-auth.guard';
 
 @Controller('users')
 export class UserController {
@@ -51,6 +53,7 @@ export class UserController {
 	}
 
 	@Post()
+	@UseGuards(BasicAuthGuard)
 	@HttpCode(HttpStatus.CREATED)
 	async createUser(@Body() createUserDto: CreateUserDto): Promise<UserOutputModel> {
 		const id = await this.userService.createUser(createUserDto);
@@ -58,6 +61,7 @@ export class UserController {
 	}
 
 	@Delete(':id')
+	@UseGuards(BasicAuthGuard)
 	@HttpCode(HttpStatus.NO_CONTENT)
 	@UsePipes(new ObjectIdValidationPipe())
 	async deleteUser(@Param('id') id: ObjectId) {

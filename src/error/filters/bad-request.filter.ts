@@ -7,8 +7,8 @@ import {
 	ValidationError,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ErrorInterface } from './interface';
-import { generateError } from './generator';
+import { ErrorInterface } from '../interface';
+import { generateError } from '../generator';
 
 @Catch(BadRequestException)
 export class BadRequestExceptionFilter implements ExceptionFilter {

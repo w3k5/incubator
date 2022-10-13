@@ -10,6 +10,7 @@ import {
 	Post,
 	Put,
 	Query,
+	UseGuards,
 	UsePipes,
 } from '@nestjs/common';
 import { AbstractBlogQueryRepository } from '@app/modules/blog/database/query/_abstract.blog-query-repository.service';
@@ -21,6 +22,7 @@ import { ObjectIdValidationPipe } from '@app/pipes/objectId.validator.pipe';
 import { ObjectId } from 'mongodb';
 import { CreateBlogDto } from '@app/modules/blog/dto/create-blog.dto';
 import { UpdateBlogDto } from '@app/modules/blog/dto/update-blog.dto';
+import { BasicAuthGuard } from '@app/guards/basic-auth.guard';
 
 @Controller('blogs')
 export class BlogController {
@@ -38,7 +40,7 @@ export class BlogController {
 			pagesCount,
 			totalCount,
 			page: searchParams.pageNumber,
-			items: documents as any,
+			items: documents,
 		};
 	}
 
@@ -54,6 +56,7 @@ export class BlogController {
 	}
 
 	@Post()
+	@UseGuards(BasicAuthGuard)
 	@HttpCode(HttpStatus.CREATED)
 	async createBlog(@Body() createBlogDto: CreateBlogDto) {
 		const id = await this.blogsService.create(createBlogDto);
@@ -62,6 +65,7 @@ export class BlogController {
 	}
 
 	@Put(':id')
+	@UseGuards(BasicAuthGuard)
 	@HttpCode(HttpStatus.NO_CONTENT)
 	@UsePipes(new ObjectIdValidationPipe())
 	async updateBlogById(@Body() updateBlogDto: UpdateBlogDto, @Param('id') id: ObjectId) {
@@ -73,6 +77,7 @@ export class BlogController {
 	}
 
 	@Delete(':id')
+	@UseGuards(BasicAuthGuard)
 	@HttpCode(HttpStatus.NO_CONTENT)
 	@UsePipes(new ObjectIdValidationPipe())
 	async deleteBlogById(@Param('id') id: ObjectId) {

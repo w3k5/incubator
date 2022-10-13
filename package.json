@@ -85,7 +85,8 @@
       "^@app/services/(.*)$": "<rootDir>/services/$1",
       "^@app/modules/(.*)$": "<rootDir>/modules/$1",
       "^@app/dtos/(.*)$": "<rootDir>/_common/dtos/$1",
-      "^@app/pipes/(.*)$": "<rootDir>/pipes/$1"
+      "^@app/pipes/(.*)$": "<rootDir>/pipes/$1",
+      "^@app/guards/(.*)$": "<rootDir>/guards/$1"
     }
   }
 }

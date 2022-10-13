@@ -23,7 +23,8 @@
       "@app/modules/*": ["src/modules/*"],
       "@app/services/*": ["src/services/*"],
       "@app/dtos/*": ["src/_common/dtos/*"],
-      "@app/pipes/*": ["src/pipes/*"]
+      "@app/pipes/*": ["src/pipes/*"],
+      "@app/guards/*": ["src/guards/*"]
     }
   }
 }

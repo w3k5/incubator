@@ -1,7 +1,8 @@
 import { BadRequestException, INestApplication, ValidationPipe } from '@nestjs/common';
 import { generateError } from '../error/generator';
-import { BadRequestExceptionFilter } from '../error/bad-request.filter';
-import { NotFoundFilter } from '../error/not-found.filter';
+import { BadRequestExceptionFilter } from '../error/filters/bad-request.filter';
+import { NotFoundFilter } from '../error/filters/not-found.filter';
+import { BasicUnauthorizedFilter } from '../error/filters/basic-unauthorized.filter';
 
 export const setAppConfiguration = (app: INestApplication) => {
 	const globalPipesSettings = new ValidationPipe({
@@ -17,7 +18,7 @@ export const setAppConfiguration = (app: INestApplication) => {
 			throw new BadRequestException(preparedErrors);
 		},
 	});
-	const globalFiltersSettings = [new BadRequestExceptionFilter(), new NotFoundFilter()];
+	const globalFiltersSettings = [new BadRequestExceptionFilter(), new NotFoundFilter(), new BasicUnauthorizedFilter()];
 
 	app.useGlobalFilters(...globalFiltersSettings);
 	app.useGlobalPipes(globalPipesSettings);

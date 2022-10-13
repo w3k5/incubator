@@ -1,4 +1,4 @@
-export interface Configuration {
+export interface EnvConfiguration {
 	port: number;
 	env: string;
 	mock: {
@@ -25,7 +25,7 @@ export interface Configuration {
 	};
 }
 
-export const loadEnv = (): Configuration => ({
+export const loadEnv = (): EnvConfiguration => ({
 	port: Number(process.env.PORT) || 3000,
 	env: process.env.NODE_ENV || 'development',
 	mock: {

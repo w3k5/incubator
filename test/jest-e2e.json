@@ -12,6 +12,7 @@
     "^@app/services/(.*)$": "<rootDir>/../src/services/$1",
     "^@app/modules/(.*)$": "<rootDir>/../src/modules/$1",
     "^@app/dtos/(.*)$": "<rootDir>/../src/_common/dtos/$1",
-    "^@app/pipes/(.*)$": "<rootDir>/../src/pipes/$1"
+    "^@app/pipes/(.*)$": "<rootDir>/../src/pipes/$1",
+    "^@app/guards/(.*)$": "<rootDir>/../src/guards/$1"
   }
 }
